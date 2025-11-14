@@ -43,22 +43,59 @@ body {
   color: white;
 }
 
-/* HERO */
+/* ========================= */
+/*        HERO CENTRADO      */
+/* ========================= */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 420px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 32px;
-  padding: 60px;
+  text-align: center;
+  padding: 80px 20px;
+  gap: 30px;
+}
+
+.hero-content {
+  max-width: 700px;
 }
 
 .hero-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 48px;
-  margin: 0 0 10px;
+  font-size: 60px;
+  margin-bottom: 10px;
+  line-height: 1.1;
 }
-.hero-title span { color: var(--cyan); }
 
+.hero-title span {
+  color: var(--cyan);
+}
+
+.hero-sub {
+  font-size: 20px;
+  opacity: 0.85;
+  margin-bottom: 22px;
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.hero-art img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* ========================= */
+
+/* BOTONES */
 .btn-glow {
   background: linear-gradient(90deg, var(--cyan), var(--violet));
   color: #071228;
@@ -119,6 +156,8 @@ body {
 }
 .gitem img {
   width: 100%;
+  height: 100px;
+  object-fit: cover;
   transition: transform .3s ease;
 }
 .gitem:hover img {
@@ -163,17 +202,29 @@ body {
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 40px 20px;
+  .hero-title {
+    font-size: 42px;
   }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta a {
+    width: 100%;
+    text-align: center;
+  }
+
   .cards {
     flex-direction: column;
   }
+
   .contact-form {
     grid-template-columns: 1fr;
   }
 }
+
 /* ===== MODO CLARO ===== */
 body.light {
   background: #FFFFFF;
@@ -207,4 +258,287 @@ body.light .btn-outline {
 body.light .btn-glow {
   color: #071228;
   box-shadow: 0 0 20px rgba(160,32,240,0.2);
+}
+/* CENTRAR EL FORMULARIO DE CONTACTO */
+.contact {
+  padding: 60px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 700px; /* ajustado para centrar */
+  width: 100%;       /* necesario para que el centrado funcione */
+}
+
+.form-actions {
+  text-align: right;
+}
+.footer {
+  text-align: center;
+  padding: 18px;
+  color: rgba(255,255,255,0.6);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+}
+/* ===== MODO CLARO MEJORADO ===== */
+body.light {
+  background: #FFFFFF;
+  color: #0A0F24; /* texto principal bien visible */
+}
+
+/* Texto general */
+body.light h1,
+body.light h2,
+body.light h3,
+body.light p,
+body.light a,
+body.light label,
+body.light span {
+  color: #0A0F24 !important;
+}
+
+/* NAV */
+body.light .nav a {
+  color: #0A0F24;
+}
+
+/* Tarjetas, galería e items */
+body.light .card,
+body.light .gitem {
+  background: rgba(10, 15, 36, 0.05);
+  border: 1px solid rgba(10, 15, 36, 0.4); /* borde más visible */
+}
+
+/* FOOTER */
+body.light .footer {
+  color: #0A0F24;
+  border-top-color: rgba(10, 15, 36, 0.3);
+}
+
+/* Botón outline */
+body.light .btn-outline {
+  color: #0A0F24;
+  border-color: rgba(10, 15, 36, 0.5);
+}
+
+/* Botón glow */
+body.light .btn-glow {
+  color: #071228;
+  box-shadow: 0 0 20px rgba(160, 32, 240, 0.2);
+}
+
+/* ============================= */
+/* FORMULARIO — MODO CLARO      */
+/* ============================= */
+
+body.light .contact-form {
+  background: rgba(10, 15, 36, 0.05);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #0A0F24; /* borde negro visible */
+}
+
+/* Inputs y textarea */
+body.light .contact-form input,
+body.light .contact-form textarea {
+  color: #0A0F24;
+  background: #FFFFFF;
+  border: 1px solid #0A0F24; /* borde negro */
+}
+
+/* Labels */
+body.light .contact-form label span {
+  color: #0A0F24;
+}
+/* ===== MODAL ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--glass);
+  border: 1px solid var(--cyan);
+  box-shadow: 0 0 25px rgba(20,240,217,0.3);
+  padding: 30px;
+  max-width: 550px;
+  width: 100%;
+  border-radius: 14px;
+  color: white;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* MODO CLARO PARA MODAL */
+body.light .modal-content {
+  background: white;
+  border: 2px solid #0A0F24;
+  color: #0A0F24;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+.modal-img {
+  display: block;
+  margin: 0 auto 20px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+}
+/* Centrar completamente las tarjetas Destacados */
+.cards {
+  display: flex;
+  justify-content: center;   /* CENTRA TODO EL GRUPO */
+  align-items: flex-start;
+  gap: 20px;
+  text-align: center;        /* Centra el texto dentro */
+}
+
+/* Centrar contenido de cada card */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;        /* CENTRA ELEMENTOS INTERNOS */
+  text-align: center;
+  justify-content: center;
+
+  flex: 1;
+  max-width: 280px;           /* Para que no se estiren demasiado */
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(20,240,217,0.1);
+  transition: 0.3s ease;
+}
+
+/* Íconos centrados y del mismo tamaño */
+.card-preview i {
+  font-size: 52px;
+  margin-bottom: 12px;
+}
+
+/* Asegurar el centrado del título y texto */
+.card-preview h3,
+.card-preview p {
+  text-align: center;
+}
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 80px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../img/gallery/portal.jpg") center/cover no-repeat;
+  filter: blur(10px) brightness(0.55);
+  opacity: 0.65;
+  z-index: -1;
+}
+/* ============================= */
+/*     CAROUSEL — NEON GALLERY   */
+/* ============================= */
+
+.gallery-carousel {
+  width: 100%;
+  height: 320px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(160,32,240,0.35);
+  box-shadow: 0 0 25px rgba(20,240,217,0.2);
+}
+
+.gc-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.gc-slide.active {
+  opacity: 1;
+}
+
+/* Overlay */
+.gc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,15,36,0.4), rgba(10,15,36,0.9));
+  z-index: 2;
+}
+
+/* Arrows */
+.gc-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  font-size: 32px;
+  background: rgba(0,0,0,0.4);
+  color: var(--cyan);
+  border: 1px solid rgba(20,240,217,0.4);
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.gc-arrow:hover {
+  background: rgba(20,240,217,0.3);
+  color: #fff;
+}
+.gc-prev { left: 12px; }
+.gc-next { right: 12px; }
+
+/* Dots */
+.gc-dots {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 6;
+}
+.gc-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.gc-dots span.active {
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
 }

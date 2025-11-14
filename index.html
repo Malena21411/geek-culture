@@ -68,8 +68,7 @@
       <button id="themeToggle" class="btn-outline" aria-label="Cambiar modo">🌙</button>
     </nav>
   </header>
-
-  <main>
+  <main>  
     <!-- HERO -->
     <section class="hero">
       <div class="hero-content">
@@ -83,8 +82,7 @@
 
       <div class="hero-art">
         <div class="grid-pattern" aria-hidden="true"></div>
-        <img src="img/hero/portal.png" alt="Portal futurista" onerror="this.style.opacity=.15">
-      </div>
+         </div>
     </section>
 
     <!-- FEATURED -->
@@ -92,39 +90,75 @@
       <h2>Destacados</h2>
       <div class="cards">
         <a href="#hardware" class="card">
-          <i class="ph ph-chip"></i>
-          <h3>Hardware</h3>
-          <p>Reviews, mods y guías de montaje para tu estación de batalla.</p>
-        </a>
-        <a href="#videojuegos" class="card">
-          <i class="ph ph-game-controller"></i>
-          <h3>Videojuegos</h3>
-          <p>Lo último en lanzamientos indie y triple-A con estética retro-futurista.</p>
-        </a>
-        <a href="#ciencia" class="card">
-          <i class="ph ph-rocket"></i>
-          <h3>Ciencia ficción</h3>
-          <p>Series, películas y novelas que imaginan nuestro mañana.</p>
-        </a>
+  <!-- Vista previa (lo que se ve sin click) -->
+  <div class="card-preview">
+    <i class="ph ph-chip"></i>
+    <h3>Hardware</h3>
+    <p>Reviews, mods y guías de montaje para tu estación de batalla.</p>
+  </div>
+</a>
+<a href="#videojuegos" class="card">
+  <div class="card-preview">
+    <i class="ph ph-game-controller"></i>
+    <h3>Videojuegos</h3>
+    <p>Lo último en lanzamientos indie y triple-A con estética retro-futurista.</p>
+  </div>
+  <div class="card-details">
+  </div>
+</a>
+<a href="#ciencia" class="card">
+  <div class="card-preview">
+    <i class="ph ph-rocket"></i>
+    <h3>Ciencia ficción</h3>
+    <p>Series, películas y novelas que imaginan nuestro mañana.</p>
+  </div>
+</a>
       </div>
     </section>
 
     <!-- GALLERY -->
-    <section id="gallery" class="gallery">
-      <h2>Neon Gallery</h2>
-      <div class="gallery-grid">
-        <figure class="gitem"><img src="img/gallery/1.jpg" alt="gallery 1"></figure>
-        <figure class="gitem"><img src="img/gallery/2.jpg" alt="gallery 2"></figure>
-        <figure class="gitem"><img src="img/gallery/3.jpg" alt="gallery 3"></figure>
-        <figure class="gitem"><img src="img/gallery/4.jpg" alt="gallery 4"></figure>
-        <figure class="gitem"><img src="img/gallery/5.jpg" alt="gallery 5"></figure>
-        <figure class="gitem"><img src="img/gallery/6.jpg" alt="gallery 6"></figure>
-      </div>
-    </section>
+    <!-- GALLERY -->
+<section id="gallery" class="gallery">
+  <h2>Neon Gallery</h2>
+
+  <!-- ============================= -->
+  <!--      CAROUSEL INTEGRADO       -->
+  <!-- ============================= -->
+  <div class="gallery-carousel">
+    <div class="gc-slide" style="background-image:url('img/gallery/1.jpg')"></div>
+    <div class="gc-slide" style="background-image:url('img/gallery/2.jpg')"></div>
+    <div class="gc-slide" style="background-image:url('img/gallery/3.jpg')"></div>
+    <div class="gc-slide" style="background-image:url('img/gallery/4.jpg')"></div>
+    <div class="gc-slide" style="background-image:url('img/gallery/5.jpg')"></div>
+    <div class="gc-slide" style="background-image:url('img/gallery/6.jpg')"></div>
+
+    <!-- overlay para look neon -->
+    <div class="gc-overlay"></div>
+
+    <!-- controles -->
+    <button class="gc-arrow gc-prev">‹</button>
+    <button class="gc-arrow gc-next">›</button>
+
+    <div class="gc-dots"></div>
+  </div>
+
+  <!-- ============================= -->
+  <!--        GRID ORIGINAL          -->
+  <!-- ============================= -->
+  <div class="gallery-grid">
+    <figure class="gitem"><img src="img/gallery/1.jpg" alt="gallery 1"></figure>
+    <figure class="gitem"><img src="img/gallery/2.jpg" alt="gallery 2"></figure>
+    <figure class="gitem"><img src="img/gallery/3.jpg" alt="gallery 3"></figure>
+    <figure class="gitem"><img src="img/gallery/4.jpg" alt="gallery 4"></figure>
+    <figure class="gitem"><img src="img/gallery/5.jpg" alt="gallery 5"></figure>
+    <figure class="gitem"><img src="img/gallery/6.jpg" alt="gallery 6"></figure>
+  </div>
+</section>
+
 
     <!-- CONTACT -->
     <section id="contact" class="contact">
-      <h2>Contacto</h2>
+      <h2></h2>
       <form class="contact-form" onsubmit="handleContact(event)">
         <label>
           <span>Nombre</span>
@@ -144,28 +178,9 @@
       </form>
     </section>
 
-    <!-- NUEVAS SECCIONES DETALLADAS -->
-    <section id="hardware" class="detail">
-      <h2>Hardware</h2>
-      <p>Explora lo último en componentes, periféricos, configuraciones RGB, overclocking y personalización de tu setup.
-      Incluye guías prácticas, análisis de rendimiento y comparativas entre marcas líderes del mercado geek.</p>
-      <a href="#featured" class="back-btn">⬆ Volver a Destacados</a>
-    </section>
 
-    <section id="videojuegos" class="detail">
-      <h2>Videojuegos</h2>
-      <p>Desde títulos AAA hasta joyas independientes.
-      Descubre reseñas, avances, bandas sonoras y mundos retro-futuristas inspirados en el universo geek.
-      Una mirada completa al gaming que mezcla nostalgia y tecnología de punta.</p>
-      <a href="#featured" class="back-btn">⬆ Volver a Destacados</a>
-    </section>
-
-    <section id="ciencia" class="detail">
-      <h2>Ciencia Ficción</h2>
-      <p>Analizamos películas, libros y series que imaginan futuros imposibles.
-      Cyberpunk, inteligencia artificial, viajes interdimensionales y las teorías que nos acercan a la frontera entre ciencia y fantasía.</p>
-      <a href="#featured" class="back-btn">⬆ Volver a Destacados</a>
-    </section>
+        <!-- Overlay para el modal de Destacados -->
+    <div id="featuredOverlay" class="modal-overlay"></div>
   </main>
 
   <footer class="footer">
@@ -173,7 +188,49 @@
   </footer>
 
   <script src="js/main.js"></script>
-  
+<div id="modal" class="modal">
+  <div class="modal-content"></div>
+</div>
+<!-- ===================== TEMPLATES DE MODAL ===================== -->
+
+<template id="modal-hardware">
+  <img src="img/gallery/hardware.jpg" class="modal-img">
+  <h2>Hardware</h2>
+  <p>
+    Guías paso a paso para armar tu PC gamer, recomendaciones de componentes,
+    tips de refrigeración y consejos para exprimir al máximo tu setup.
+  </p>
+  <p>
+    También exploramos mods RGB, periféricos y configuraciones para streaming,
+    siempre con estética futurista y enfoque en calidad-precio.
+  </p>
+</template>
+
+<template id="modal-videojuegos">
+  <img src="img/gallery/Videojuegos.jpg" class="modal-img">
+  <h2>Videojuegos</h2>
+  <p>
+    Análisis de juegos indie y triple-A, recomendaciones para distintas plataformas,
+    y reseñas centradas en gameplay, narrativa y rejugabilidad.
+  </p>
+  <p>
+    Descubrí joyas ocultas, experiencias cooperativas y títulos perfectos para
+    maratonear en tu cueva gamer.
+  </p>
+</template>
+
+<template id="modal-ciencia">
+  <img src="img/gallery/Ciencia Ficcion.jpg" class="modal-img">
+  <h2>Ciencia ficción</h2>
+  <p>
+    Recomendaciones de series, películas y libros de viajes espaciales,
+    futuros distópicos e inteligencia artificial.
+  </p>
+  <p>
+    Perfecto para tus maratones nocturnas de ciencia ficción.
+  </p>
+</template>
+
 </body>
 </html>
 
