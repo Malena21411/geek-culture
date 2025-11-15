@@ -106,9 +106,173 @@ document.querySelector(".gc-next").addEventListener("click", () => {
   showSlide(index);
 });
 
-// Inicio automático
-showSlide(0);
-setInterval(() => {
-  index = (index + 1) % slides.length;
-  showSlide(index);
-}, 4500);
+/* ============================= */
+/*       REPRODUCTOR MÚSICA      */
+/* ============================= */
+
+// Catálogo de temas
+const tracks = [
+  { title: "Turururu Turururu", file: "music/musica.mp3" },
+  { title: "Star Man",       file: "music/musica2.mp3" },
+  { title: "Te habia olvidado",     file: "music/musica3.mp3" }
+  // Agregá más si querés
+];
+
+let currentTrackIndex = 0;
+let isPlaying = false;
+
+const audio      = new Audio();
+audio.loop       = false;
+audio.volume     = 0.5;
+
+// Elementos del DOM
+const mpTitle    = document.getElementById("mp-title");
+const mpPlayBtn  = document.getElementById("mp-play");
+const mpPrevBtn  = document.getElementById("mp-prev");
+const mpNextBtn  = document.getElementById("mp-next");
+const mpSeek     = document.getElementById("mp-seek");
+const mpCurrent  = document.getElementById("mp-current");
+const mpDuration = document.getElementById("mp-duration");
+const mpVolume   = document.getElementById("mp-volume");
+const mpPlaylist = document.getElementById("mp-playlist");
+
+// Playlist desplegable
+const mfToggleList = document.getElementById("mfToggleList");
+
+// Botón del header = mute global
+const musicBtnHeader = document.getElementById("musicToggle");
+let headerMuted = false;
+
+// Rellenar la playlist
+if (mpPlaylist) {
+  tracks.forEach((track, index) => {
+    const li = document.createElement("li");
+    li.textContent = track.title;
+    li.dataset.index = index;
+    li.classList.add("mf-item");
+    li.addEventListener("click", () => {
+      loadTrack(index);
+      playTrack();
+    });
+    mpPlaylist.appendChild(li);
+  });
+}
+
+function highlightActiveTrack() {
+  if (!mpPlaylist) return;
+  const items = mpPlaylist.querySelectorAll(".mf-item");
+  items.forEach((item, i) => {
+    item.classList.toggle("active", i === currentTrackIndex);
+  });
+}
+
+function loadTrack(index) {
+  currentTrackIndex = index;
+  const track = tracks[currentTrackIndex];
+  audio.src = track.file;
+  if (mpTitle) mpTitle.textContent = track.title;
+  highlightActiveTrack();
+}
+
+function playTrack() {
+  audio.play();
+  isPlaying = true;
+  if (mpPlayBtn) mpPlayBtn.textContent = "⏸";
+}
+
+function pauseTrack() {
+  audio.pause();
+  isPlaying = false;
+  if (mpPlayBtn) mpPlayBtn.textContent = "▶";
+}
+
+// Controles principales
+if (mpPlayBtn) {
+  mpPlayBtn.addEventListener("click", () => {
+    if (!audio.src) loadTrack(currentTrackIndex);
+    isPlaying ? pauseTrack() : playTrack();
+  });
+}
+
+if (mpPrevBtn) {
+  mpPrevBtn.addEventListener("click", () => {
+    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+    loadTrack(currentTrackIndex);
+    playTrack();
+  });
+}
+
+if (mpNextBtn) {
+  mpNextBtn.addEventListener("click", () => {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    loadTrack(currentTrackIndex);
+    playTrack();
+  });
+}
+
+// Auto siguiente tema al terminar
+audio.addEventListener("ended", () => {
+  currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+  loadTrack(currentTrackIndex);
+  playTrack();
+});
+
+// Formatear tiempo
+function formatTime(sec) {
+  const m = Math.floor(sec / 60) || 0;
+  const s = Math.floor(sec % 60) || 0;
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+// Actualizar barra de progreso
+audio.addEventListener("timeupdate", () => {
+  if (!mpSeek || !mpCurrent || !mpDuration) return;
+  const current = audio.currentTime;
+  const duration = audio.duration || 0;
+
+  mpCurrent.textContent = formatTime(current);
+  mpDuration.textContent = duration ? formatTime(duration) : "0:00";
+
+  if (duration) {
+    mpSeek.value = (current / duration) * 100;
+  }
+});
+
+// Buscar con el range
+if (mpSeek) {
+  mpSeek.addEventListener("input", () => {
+    if (!audio.duration) return;
+    const newTime = (mpSeek.value / 100) * audio.duration;
+    audio.currentTime = newTime;
+  });
+}
+
+// Volumen
+if (mpVolume) {
+  mpVolume.addEventListener("input", () => {
+    audio.volume = mpVolume.value;
+  });
+}
+
+// Mute/unmute global desde el botón del header
+if (musicBtnHeader) {
+  musicBtnHeader.addEventListener("click", () => {
+    headerMuted = !headerMuted;
+    audio.muted = headerMuted;
+    musicBtnHeader.textContent = headerMuted ? "🔇" : "🎵";
+  });
+}
+
+// Mostrar / ocultar playlist
+if (mfToggleList) {
+  mfToggleList.addEventListener("click", () => {
+    document.querySelector(".mf-playlist-wrap")
+      .classList.toggle("open");
+  });
+}
+
+// Cargar primera pista sin reproducir
+if (tracks.length > 0) {
+  loadTrack(0);
+}
+

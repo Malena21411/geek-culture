@@ -459,7 +459,7 @@ body.modal-open {
   position: absolute;
   inset: 0;
   background: url("../img/gallery/portal.jpg") center/cover no-repeat;
-  filter: blur(3px) brightness(0.55);
+  filter: blur(2px) brightness(0.55);
   opacity: 0.65;
   z-index: -1;
 }
@@ -542,3 +542,245 @@ body.modal-open {
   background: var(--cyan);
   box-shadow: 0 0 8px var(--cyan);
 }
+/* === REPRODUCTOR FLOTANTE NEON === */
+
+.music-floating {
+  position: sticky;           /* se queda pegado arriba al hacer scroll */
+  top: 0;
+  z-index: 900;               /* por encima del contenido, pero debajo del modal si querés */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px 4px;
+  pointer-events: none;       /* el contenedor no bloquea clicks... */
+}
+
+.music-floating .mf-inner {
+  pointer-events: auto;       /* ...pero el reproductor sí */
+  width: 100%;
+  max-width: 880px;
+  border-radius: 999px;
+  padding: 8px 18px;
+  background:
+    radial-gradient(circle at top left, rgba(20,240,217,0.22), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(160,32,240,0.25), transparent 55%),
+    rgba(5,10,26,0.92);
+  box-shadow:
+    0 0 30px rgba(0,0,0,0.8),
+    0 0 26px rgba(20,240,217,0.24),
+    0 0 32px rgba(160,32,240,0.32);
+  backdrop-filter: blur(14px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) auto minmax(0, 2fr);
+  gap: 12px;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Lado izquierdo: título */
+.mf-left {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mf-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.6);
+}
+
+#mp-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: var(--cyan);
+}
+
+/* Centro: botones de control */
+.mf-center {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.mf-btn {
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  background: rgba(7,18,40,0.9);
+  color: #f9f9ff;
+  border: 1px solid rgba(20,240,217,0.4);
+  box-shadow: 0 0 12px rgba(20,240,217,0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.mf-btn-main {
+  padding-inline: 12px;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+  color: #050815;
+  box-shadow:
+    0 0 16px rgba(20,240,217,0.4),
+    0 0 22px rgba(160,32,240,0.45);
+}
+
+.mf-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(20,240,217,0.5);
+}
+
+/* Derecha: barra de tiempo y volumen */
+.mf-right {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mf-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.78);
+}
+
+.mf-time input[type="range"] {
+  flex: 1;
+}
+
+.mf-volume {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+}
+
+.mf-volume input[type="range"] {
+  width: 110px;
+}
+
+/* Playlist flotante plegable */
+.mf-playlist-wrap {
+  pointer-events: auto;
+  margin-top: 4px;
+  max-width: 880px;
+  width: 100%;
+}
+
+.mf-toggle-list {
+  width: fit-content;
+  margin-inline: auto;
+  margin-top: 4px;
+  border: none;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  background: rgba(5,10,26,0.9);
+  color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.mf-chevron {
+  display: inline-block;
+  transition: transform 0.18s ease;
+}
+
+.mf-playlist-wrap.open .mf-chevron {
+  transform: rotate(180deg);
+}
+
+.mf-playlist {
+  margin-top: 4px;
+  list-style: none;
+  padding: 6px;
+  border-radius: 12px;
+  background: rgba(5,10,26,0.95);
+  border: 1px solid rgba(20,240,217,0.25);
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+  max-height: 180px;
+  overflow-y: auto;
+  display: none;
+}
+
+.mf-playlist-wrap.open .mf-playlist {
+  display: block;
+}
+
+.mf-item {
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 2px;
+  color: rgba(255,255,255,0.78);
+  transition: background 0.18s ease, color 0.18s ease, transform 0.12s ease;
+}
+
+.mf-item:hover {
+  background: rgba(20,240,217,0.12);
+  transform: translateX(2px);
+}
+
+.mf-item.active {
+  background: linear-gradient(90deg, rgba(20,240,217,0.32), rgba(160,32,240,0.38));
+  color: #ffffff;
+}
+
+/* Ranges generales para el reproductor (opcional) */
+.music-floating input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  outline: none;
+}
+
+.music-floating input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px rgba(20,240,217,0.9);
+  cursor: pointer;
+}
+
+/* Responsive para pantallas chicas */
+@media (max-width: 768px) {
+  .music-floating .mf-inner {
+    grid-template-columns: 1fr;
+    row-gap: 6px;
+    border-radius: 18px;
+  }
+
+  .mf-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  #mp-title {
+    font-size: 14px;
+  }
+
+  .mf-right {
+    gap: 2px;
+  }
+
+  .mf-volume input[type="range"] {
+    width: 80px;
+  }
+}
+

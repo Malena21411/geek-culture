@@ -65,9 +65,53 @@
       <a href="#featured">Destacados</a>
       <a href="#gallery">Galería</a>
       <a href="#contact">Contacto</a>
+
+
       <button id="themeToggle" class="btn-outline" aria-label="Cambiar modo">🌙</button>
     </nav>
   </header>
+
+  <!-- === REPRODUCTOR FLOTANTE NEON === -->
+  <section class="music-floating">
+    <div class="mf-inner">
+      <div class="mf-left">
+        <span class="mf-label">Now Playing</span>
+        <h3 id="mp-title">Elige una pista</h3>
+      </div>
+
+      <div class="mf-center">
+        <button id="mp-prev" class="mf-btn" aria-label="Pista anterior">⏮</button>
+        <button id="mp-play" class="mf-btn mf-btn-main" aria-label="Reproducir / Pausar">▶</button>
+        <button id="mp-next" class="mf-btn" aria-label="Pista siguiente">⏭</button>
+      </div>
+
+      <div class="mf-right">
+        <div class="mf-time">
+          <span id="mp-current">0:00</span>
+          <input type="range" id="mp-seek" min="0" max="100" value="0">
+          <span id="mp-duration">0:00</span>
+        </div>
+        <div class="mf-volume">
+          <i class="ph ph-speaker-high"></i>
+          <input type="range" id="mp-volume" min="0" max="1" step="0.01" value="0.5">
+        </div>
+      </div>
+    </div>
+
+    <!-- Playlist desplegable -->
+    <div class="mf-playlist-wrap">
+      <button class="mf-toggle-list" id="mfToggleList">
+        Playlist <span class="mf-chevron">⌄</span>
+      </button>
+      <ul class="mf-playlist" id="mp-playlist">
+        <!-- Se llena desde JS -->
+      </ul>
+    </div>
+  </section>
+
+
+
+
   <main>  
     <!-- HERO -->
     <section class="hero">
@@ -193,11 +237,11 @@
   </main>
 
   <footer class="footer">
-    <p>© <span id="year"></span> Geek Culture — Hecho con neon y amor por la tecnología</p>
+    <p>© <span id="year"></span> Geek Culture — Hecho con amor y los fondos monetarios de LynaVlogs</p>
   </footer>
 
   <script src="js/main.js"></script>
-<div id="modal" class="modal">
+<div id="modal" class="modal">  
   <div class="modal-content"></div>
 </div>
 <!-- ===================== TEMPLATES DE MODAL ===================== -->
